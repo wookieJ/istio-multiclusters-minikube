@@ -1,0 +1,26 @@
+site_name: Istio multiclusters on minikube
+docs_dir: docs
+
+markdown_extensions:
+  - pymdownx.emoji:
+      emoji_index: !!python/name:materialx.emoji.twemoji
+      emoji_generator: !!python/name:materialx.emoji.to_svg
+  - admonition
+  - codehilite
+  - toc
+
+theme:
+  name: material
+  logo:
+    icon: book
+  palette:
+    primary: indigo
+    accent: indigo
+  font:
+    text: Ubuntu
+    code: Ubuntu Mono
+
+#nav:
+#  - Home: index.md
+#  - Istio:
+#    - Multiclusters: istio/multiclusters.md
