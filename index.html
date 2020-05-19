@@ -1,0 +1,577 @@
+
+
+
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      <meta http-equiv="x-ua-compatible" content="ie=edge">
+      
+      
+      
+      
+        <meta name="lang:clipboard.copy" content="Copy to clipboard">
+      
+        <meta name="lang:clipboard.copied" content="Copied to clipboard">
+      
+        <meta name="lang:search.language" content="en">
+      
+        <meta name="lang:search.pipeline.stopwords" content="True">
+      
+        <meta name="lang:search.pipeline.trimmer" content="True">
+      
+        <meta name="lang:search.result.none" content="No matching documents">
+      
+        <meta name="lang:search.result.one" content="1 matching document">
+      
+        <meta name="lang:search.result.other" content="# matching documents">
+      
+        <meta name="lang:search.tokenizer" content="[\s\-]+">
+      
+      <link rel="shortcut icon" href="assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.1, mkdocs-material-4.4.0">
+    
+    
+      
+        <title>Istio multiclusters on minikube</title>
+      
+    
+    
+      <link rel="stylesheet" href="assets/stylesheets/application.0284f74d.css">
+      
+        <link rel="stylesheet" href="assets/stylesheets/application-palette.01803549.css">
+      
+      
+        
+        
+        <meta name="theme-color" content="#3f51b5">
+      
+    
+    
+      <script src="assets/javascripts/modernizr.74668098.js"></script>
+    
+    
+      
+        <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,400i,700|Ubuntu+Mono&display=fallback">
+        <style>body,input{font-family:"Ubuntu","Helvetica Neue",Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Ubuntu Mono","Courier New",Courier,monospace}</style>
+      
+    
+    <link rel="stylesheet" href="assets/fonts/material-icons.css">
+    
+    
+    
+      
+    
+    
+  </head>
+  
+    
+    
+    <body dir="ltr" data-md-color-primary="indigo" data-md-color-accent="indigo">
+  
+    <svg class="md-svg">
+      <defs>
+        
+        
+      </defs>
+    </svg>
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" data-md-component="overlay" for="__drawer"></label>
+    
+      <a href="#istio-multiclusters" tabindex="1" class="md-skip">
+        Skip to content
+      </a>
+    
+    
+      <header class="md-header" data-md-component="header">
+  <nav class="md-header-nav md-grid">
+    <div class="md-flex">
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <a href="." title="Istio multiclusters on minikube" class="md-header-nav__button md-logo">
+          
+            <i class="md-icon">book</i>
+          
+        </a>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        <label class="md-icon md-icon--menu md-header-nav__button" for="__drawer"></label>
+      </div>
+      <div class="md-flex__cell md-flex__cell--stretch">
+        <div class="md-flex__ellipsis md-header-nav__title" data-md-component="title">
+          
+            <span class="md-header-nav__topic">
+              Istio multiclusters on minikube
+            </span>
+            <span class="md-header-nav__topic">
+              
+                Istio multiclusters
+              
+            </span>
+          
+        </div>
+      </div>
+      <div class="md-flex__cell md-flex__cell--shrink">
+        
+          <label class="md-icon md-icon--search md-header-nav__button" for="__search"></label>
+          
+<div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="query" data-md-state="active">
+      <label class="md-icon md-search__icon" for="__search"></label>
+      <button type="reset" class="md-icon md-search__icon" data-md-component="reset" tabindex="-1">
+        &#xE5CD;
+      </button>
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="result">
+          <div class="md-search-result__meta">
+            Type to start searching
+          </div>
+          <ol class="md-search-result__list"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+        
+      </div>
+      
+    </div>
+  </nav>
+</header>
+    
+    <div class="md-container">
+      
+        
+      
+      
+      <main class="md-main">
+        <div class="md-main__inner md-grid" data-md-component="container">
+          
+            
+              <div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    <nav class="md-nav md-nav--primary" data-md-level="0">
+  <label class="md-nav__title md-nav__title--site" for="__drawer">
+    <a href="." title="Istio multiclusters on minikube" class="md-nav__button md-logo">
+      
+        <i class="md-icon">book</i>
+      
+    </a>
+    Istio multiclusters on minikube
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+      
+
+  
+
+
+  <li class="md-nav__item md-nav__item--active">
+    
+    <input class="md-toggle md-nav__toggle" data-md-toggle="toc" type="checkbox" id="__toc">
+    
+      
+    
+    
+      <label class="md-nav__link md-nav__link--active" for="__toc">
+        Istio multiclusters
+      </label>
+    
+    <a href="." title="Istio multiclusters" class="md-nav__link md-nav__link--active">
+      Istio multiclusters
+    </a>
+    
+      
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#replicated-control-planes" title="Replicated control planes" class="md-nav__link">
+    Replicated control planes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configure-minikube-clusters" title="Configure minikube clusters" class="md-nav__link">
+    Configure minikube clusters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-istio-in-each-cluster" title="Install istio in each cluster" class="md-nav__link">
+    Install istio in each cluster
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-example-services" title="Setup example services" class="md-nav__link">
+    Setup example services
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-gateway" title="Configure Gateway" class="md-nav__link">
+    Configure Gateway
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+    
+  </li>
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+              <div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+<nav class="md-nav md-nav--secondary">
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">Table of contents</label>
+    <ul class="md-nav__list" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#replicated-control-planes" title="Replicated control planes" class="md-nav__link">
+    Replicated control planes
+  </a>
+  
+    <nav class="md-nav">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#configure-minikube-clusters" title="Configure minikube clusters" class="md-nav__link">
+    Configure minikube clusters
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#install-istio-in-each-cluster" title="Install istio in each cluster" class="md-nav__link">
+    Install istio in each cluster
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#setup-example-services" title="Setup example services" class="md-nav__link">
+    Setup example services
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#configure-gateway" title="Configure Gateway" class="md-nav__link">
+    Configure Gateway
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+      
+      
+      
+      
+    </ul>
+  
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+          
+          <div class="md-content">
+            <article class="md-content__inner md-typeset">
+              
+                
+                
+                <h1 id="istio-multiclusters">Istio multiclusters</h1>
+<p>Configurating an <a href="https://istio.io/">Istio</a> mesh spanning multiple Kubernetes clusters.</p>
+<p>There are two control plane variants:</p>
+<ul>
+<li>
+<p><strong><a href="#replicated-control-planes">Replicated control planes</a></strong> -
+  Install an Istio mesh across multiple Kubernetes clusters with replicated control plane instances.</p>
+</li>
+<li>
+<p><strong>Shared control plane (single and multiple networks)</strong> -
+  Install an Istio mesh across multiple Kubernetes clusters with a shared control plane.</p>
+</li>
+</ul>
+<h2 id="replicated-control-planes">Replicated control planes</h2>
+<p><a href="https://istio.io/docs/setup/install/multicluster/gateways/">source</a></p>
+<p>Follow instructions below to configure minikube playground with <strong>two</strong> clusters.</p>
+<div class="admonition info">
+<p class="admonition-title">Info</p>
+<p>Below commands works on macOS  system</p>
+</div>
+<h3 id="configure-minikube-clusters">Configure minikube clusters</h3>
+<p>Install minikube:</p>
+<div class="codehilite"><pre><span></span><code>brew install minikube
+</code></pre></div>
+
+
+<p>Clear all minikube clusters:</p>
+<div class="codehilite"><pre><span></span><code>minikube delete --all
+</code></pre></div>
+
+
+<p>Create two minikube docker driven clusters:</p>
+<div class="codehilite"><pre><span></span><code>minikube start --driver virtualbox -p cluster-1
+</code></pre></div>
+
+
+<div class="codehilite"><pre><span></span><code>minikube start --driver virtualbox -p cluster-2
+</code></pre></div>
+
+
+<p>Check clusters:</p>
+<div class="codehilite"><pre><span></span><code>kubectl config get-contexts
+</code></pre></div>
+
+
+<p>Change cluster:</p>
+<div class="codehilite"><pre><span></span><code>minikube profile cluster-1
+</code></pre></div>
+
+
+<p>Download istio with service example:</p>
+<div class="codehilite"><pre><span></span><code>curl -L https://istio.io/downloadIstio <span class="p">|</span> <span class="nv">ISTIO_VERSION</span><span class="o">=</span><span class="m">1</span>.5.4 sh -
+<span class="nb">cd</span> istio-1.5.4
+<span class="nb">export</span> <span class="nv">PATH</span><span class="o">=</span><span class="nv">$PWD</span>/bin:<span class="nv">$PATH</span>
+<span class="nb">echo</span> <span class="nv">$PATH</span>
+</code></pre></div>
+
+
+<p>Save clusters names to variables:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">export</span> <span class="nv">CTX_CLUSTER1</span><span class="o">=</span><span class="k">$(</span>kubectl config view -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.contexts[0].name}&#39;</span><span class="k">)</span>
+<span class="nb">export</span> <span class="nv">CTX_CLUSTER2</span><span class="o">=</span><span class="k">$(</span>kubectl config view -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.contexts[1].name}&#39;</span><span class="k">)</span>
+<span class="nb">echo</span> <span class="nv">CTX_CLUSTER1</span> <span class="o">=</span> <span class="si">${</span><span class="nv">CTX_CLUSTER1</span><span class="si">}</span>, <span class="nv">CTX_CLUSTER2</span> <span class="o">=</span> <span class="si">${</span><span class="nv">CTX_CLUSTER2</span><span class="si">}</span>
+</code></pre></div>
+
+
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>Be sure your path is set <code>export PATH=$PWD/bin:$PATH</code></p>
+</div>
+<h3 id="install-istio-in-each-cluster">Install istio in each cluster</h3>
+<p>Create istio namespace:</p>
+<div class="codehilite"><pre><span></span><code>kubectl create --context<span class="o">=</span><span class="nv">$CTX_CLUSTER1</span> namespace istio-system
+kubectl create --context<span class="o">=</span><span class="nv">$CTX_CLUSTER2</span> namespace istio-system
+</code></pre></div>
+
+
+<p>Configure CA:</p>
+<div class="codehilite"><pre><span></span><code>kubectl create --context<span class="o">=</span><span class="nv">$CTX_CLUSTER1</span> secret generic cacerts -n istio-system <span class="se">\</span>
+    --from-file<span class="o">=</span>samples/certs/ca-cert.pem <span class="se">\</span>
+    --from-file<span class="o">=</span>samples/certs/ca-key.pem <span class="se">\</span>
+    --from-file<span class="o">=</span>samples/certs/root-cert.pem <span class="se">\</span>
+    --from-file<span class="o">=</span>samples/certs/cert-chain.pem
+
+kubectl create --context<span class="o">=</span><span class="nv">$CTX_CLUSTER2</span> secret generic cacerts -n istio-system <span class="se">\</span>
+    --from-file<span class="o">=</span>samples/certs/ca-cert.pem <span class="se">\</span>
+    --from-file<span class="o">=</span>samples/certs/ca-key.pem <span class="se">\</span>
+    --from-file<span class="o">=</span>samples/certs/root-cert.pem <span class="se">\</span>
+    --from-file<span class="o">=</span>samples/certs/cert-chain.pem
+</code></pre></div>
+
+
+<p>Install istio:</p>
+<div class="codehilite"><pre><span></span><code>istioctl manifest --context<span class="o">=</span><span class="nv">$CTX_CLUSTER1</span> apply <span class="se">\</span>
+    -f install/kubernetes/operator/examples/multicluster/values-istio-multicluster-gateways.yaml
+
+istioctl manifest --context<span class="o">=</span><span class="nv">$CTX_CLUSTER2</span> apply <span class="se">\</span>
+    -f install/kubernetes/operator/examples/multicluster/values-istio-multicluster-gateways.yaml
+</code></pre></div>
+
+
+<h3 id="setup-example-services">Setup example services</h3>
+<p>Deploy sleep service on first cluster:</p>
+<div class="codehilite"><pre><span></span><code>kubectl create --context<span class="o">=</span><span class="nv">$CTX_CLUSTER1</span> namespace foo
+kubectl label --context<span class="o">=</span><span class="nv">$CTX_CLUSTER1</span> namespace foo istio-injection<span class="o">=</span>enabled
+kubectl apply --context<span class="o">=</span><span class="nv">$CTX_CLUSTER1</span> -n foo -f samples/sleep/sleep.yaml
+<span class="nb">export</span> <span class="nv">SLEEP_POD</span><span class="o">=</span><span class="k">$(</span>kubectl get --context<span class="o">=</span><span class="nv">$CTX_CLUSTER1</span> -n foo pod -l <span class="nv">app</span><span class="o">=</span>sleep -o <span class="nv">jsonpath</span><span class="o">={</span>.items..metadata.name<span class="o">}</span><span class="k">)</span>
+kubectl get services --namespace foo --context <span class="nv">$CTX_CLUSTER1</span>
+</code></pre></div>
+
+
+<p>Deploy the httpbin service in second cluster:</p>
+<div class="codehilite"><pre><span></span><code>kubectl create --context<span class="o">=</span><span class="nv">$CTX_CLUSTER2</span> namespace bar
+kubectl label --context<span class="o">=</span><span class="nv">$CTX_CLUSTER2</span> namespace bar istio-injection<span class="o">=</span>enabled
+kubectl apply --context<span class="o">=</span><span class="nv">$CTX_CLUSTER2</span> -n bar -f samples/httpbin/httpbin.yaml
+kubectl get services --namespace bar --context <span class="nv">$CTX_CLUSTER2</span>
+</code></pre></div>
+
+
+<p>Show services:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">echo</span> -e <span class="s2">&quot;\n </span><span class="nv">$CTX_CLUSTER1</span><span class="s2"> services:&quot;</span>
+kubectl get services --namespace foo --context <span class="nv">$CTX_CLUSTER1</span>
+<span class="nb">echo</span> -e <span class="s2">&quot;\n </span><span class="nv">$CTX_CLUSTER2</span><span class="s2"> services:&quot;</span>
+kubectl get services --namespace bar --context <span class="nv">$CTX_CLUSTER2</span>
+<span class="nb">echo</span> -e <span class="s2">&quot;\n&quot;</span>
+</code></pre></div>
+
+
+<p>Check if load balancer is enabled:</p>
+<div class="codehilite"><pre><span></span><code>kubectl get svc istio-ingressgateway -n istio-system
+</code></pre></div>
+
+
+<p>If not (&lt;pending> state in external ip) run in new terminal:</p>
+<div class="codehilite"><pre><span></span><code>minikube profile <span class="nv">$CTX_CLUSTER2</span>
+minikube tunnel
+</code></pre></div>
+
+
+<p>External IP should be visible (external ip should not be in &lt;pending> state)</p>
+<p>Now, get second cluster gateway address:</p>
+<div class="codehilite"><pre><span></span><code><span class="nb">export</span> <span class="nv">CLUSTER2_GW_ADDR</span><span class="o">=</span><span class="k">$(</span>kubectl get --context<span class="o">=</span><span class="nv">$CTX_CLUSTER2</span> svc --selector<span class="o">=</span><span class="nv">app</span><span class="o">=</span>istio-ingressgateway <span class="se">\</span>
+    -n istio-system -o <span class="nv">jsonpath</span><span class="o">=</span><span class="s1">&#39;{.items[0].status.loadBalancer.ingress[0].ip}&#39;</span><span class="k">)</span>
+<span class="nb">echo</span> -e <span class="s2">&quot;\nIP: </span><span class="nv">$CLUSTER2_GW_ADDR</span><span class="s2">&quot;</span>
+</code></pre></div>
+
+
+<h3 id="configure-gateway">Configure Gateway</h3>
+<p>Cluster-2 gateway configuration:</p>
+<div class="codehilite"><pre><span></span><code>kubectl apply --context<span class="o">=</span><span class="nv">$CTX_CLUSTER2</span> -f - <span class="s">&lt;&lt;EOF</span>
+<span class="s">apiVersion: networking.istio.io/v1alpha3</span>
+<span class="s">kind: Gateway</span>
+<span class="s">metadata:</span>
+<span class="s">  name: httpbin-gateway</span>
+<span class="s">spec:</span>
+<span class="s">  selector:</span>
+<span class="s">    istio: ingressgateway</span>
+<span class="s">  servers:</span>
+<span class="s">  - port:</span>
+<span class="s">      number: 80</span>
+<span class="s">      name: http</span>
+<span class="s">      protocol: HTTP</span>
+<span class="s">    hosts:</span>
+<span class="s">    - &quot;httpbin.example.com&quot;</span>
+<span class="s">EOF</span>
+</code></pre></div>
+
+
+<p>Virtual service configuration:</p>
+<div class="codehilite"><pre><span></span><code>kubectl apply --context<span class="o">=</span><span class="nv">$CTX_CLUSTER2</span> -f - <span class="s">&lt;&lt;EOF</span>
+<span class="s">apiVersion: networking.istio.io/v1alpha3</span>
+<span class="s">kind: VirtualService</span>
+<span class="s">metadata:</span>
+<span class="s">  name: httpbin</span>
+<span class="s">spec:</span>
+<span class="s">  hosts:</span>
+<span class="s">  - &quot;httpbin.example.com&quot;</span>
+<span class="s">  gateways:</span>
+<span class="s">  - httpbin-gateway</span>
+<span class="s">  http:</span>
+<span class="s">  - match:</span>
+<span class="s">    - uri:</span>
+<span class="s">        prefix: /status</span>
+<span class="s">    - uri:</span>
+<span class="s">        prefix: /delay</span>
+<span class="s">    route:</span>
+<span class="s">    - destination:</span>
+<span class="s">        port:</span>
+<span class="s">          number: 8000</span>
+<span class="s">        host: httpbin.bar.svc.cluster.local</span>
+<span class="s">EOF</span>
+</code></pre></div>
+
+
+<p>Check communication from one cluster to another:</p>
+<p><img alt="Architecture" src="assets/istio/architecture.png" /></p>
+<div class="codehilite"><pre><span></span><code>kubectl <span class="nb">exec</span> --context<span class="o">=</span><span class="nv">$CTX_CLUSTER1</span> <span class="nv">$SLEEP_POD</span> -n foo -c sleep -- curl -I -H <span class="s1">&#39;Host:httpbin.example.com&#39;</span> <span class="nv">$CLUSTER2_GW_ADDR</span>:80/status/200
+</code></pre></div>
+
+
+<p>It should return <strong>HTTP 200</strong> ok status</p>
+                
+                  
+                
+              
+              
+                
+
+
+              
+            </article>
+          </div>
+        </div>
+      </main>
+      
+        
+<footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-footer-copyright">
+        
+        powered by
+        <a href="https://www.mkdocs.org">MkDocs</a>
+        and
+        <a href="https://squidfunk.github.io/mkdocs-material/">
+          Material for MkDocs</a>
+      </div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    
+      <script src="assets/javascripts/application.245445c6.js"></script>
+      
+      <script>app.initialize({version:"1.1",url:{base:"."}})</script>
+      
+    
+  </body>
+</html>
