@@ -201,7 +201,7 @@ spec:
 EOF
 ```
 
-Check communication from one cluster to another
+Check communication from one cluster to another:
 
 ![Architecture](assets/istio/architecture.png)
 

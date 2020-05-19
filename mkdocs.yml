@@ -20,7 +20,3 @@ theme:
     text: Ubuntu
     code: Ubuntu Mono
 
-#nav:
-#  - Home: index.md
-#  - Istio:
-#    - Multiclusters: istio/multiclusters.md
